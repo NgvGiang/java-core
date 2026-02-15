@@ -15,7 +15,7 @@ import java.time.Instant;
 public class Film {
     @Id
     @Column(name = "film_id", nullable = false)
-    private Short id;
+    private Long id;
 
     @Column(name = "title", nullable = false, length = 128)
     private String title;
