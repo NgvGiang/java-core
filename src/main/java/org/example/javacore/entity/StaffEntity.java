@@ -1,17 +1,18 @@
 package org.example.javacore.entity;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "staff")
-public class Staff {
+public class StaffEntity {
     @Id
     @Column(name = "staff_id", nullable = false)
     private Byte id;
@@ -24,7 +25,7 @@ public class Staff {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address_id", nullable = false)
-    private Address address;
+    private AddressEntity address;
 
     @Column(name = "picture")
     private byte[] picture;
@@ -34,9 +35,8 @@ public class Staff {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "store_id", nullable = false)
-    private Store store;
+    private StoreEntity store;
 
-    @ColumnDefault("1")
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
@@ -46,8 +46,13 @@ public class Staff {
     @Column(name = "password", length = 40)
     private String password;
 
-    @ColumnDefault("current_timestamp()")
     @Column(name = "last_update", nullable = false)
     private Instant lastUpdate;
+
+    @OneToMany(mappedBy = "staff")
+    private Set<PaymentEntity> payments = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "staff")
+    private Set<RentalEntity> rentals = new LinkedHashSet<>();
 
 }

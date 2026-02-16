@@ -1,18 +1,18 @@
 package org.example.javacore.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Embeddable
-public class FilmCategoryId implements java.io.Serializable {
-    private static final long serialVersionUID = -725707621439333372L;
+public class FilmCategoryEntityId implements java.io.Serializable {
+    private static final long serialVersionUID = 1264291230104627901L;
     @Column(name = "film_id", nullable = false)
     private Short filmId;
 
@@ -23,7 +23,7 @@ public class FilmCategoryId implements java.io.Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        FilmCategoryId entity = (FilmCategoryId) o;
+        FilmCategoryEntityId entity = (FilmCategoryEntityId) o;
         return Objects.equals(this.filmId, entity.filmId) &&
                 Objects.equals(this.categoryId, entity.categoryId);
     }

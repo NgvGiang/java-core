@@ -1,18 +1,19 @@
 package org.example.javacore.entity;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "film")
-public class Film {
+public class FilmEntity {
     @Id
     @Column(name = "film_id", nullable = false)
     private Long id;
@@ -29,28 +30,24 @@ public class Film {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "language_id", nullable = false)
-    private Language language;
+    private LanguageEntity language;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "original_language_id")
-    private Language originalLanguage;
+    private LanguageEntity originalLanguage;
 
-    @ColumnDefault("3")
     @Column(name = "rental_duration", nullable = false)
     private Byte rentalDuration;
 
-    @ColumnDefault("4.99")
     @Column(name = "rental_rate", nullable = false, precision = 4, scale = 2)
     private BigDecimal rentalRate;
 
     @Column(name = "length")
     private Short length;
 
-    @ColumnDefault("19.99")
     @Column(name = "replacement_cost", nullable = false, precision = 5, scale = 2)
     private BigDecimal replacementCost;
 
-    @ColumnDefault("G")
     @Lob
     @Column(name = "rating")
     private String rating;
@@ -59,8 +56,16 @@ public class Film {
     @Column(name = "special_features")
     private String specialFeatures;
 
-    @ColumnDefault("current_timestamp()")
     @Column(name = "last_update", nullable = false)
     private Instant lastUpdate;
+
+    @OneToMany(mappedBy = "film")
+    private Set<FilmActorEntity> filmActors = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "film")
+    private Set<FilmCategoryEntity> filmCategories = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "film")
+    private Set<InventoryEntity> inventories = new LinkedHashSet<>();
 
 }

@@ -1,20 +1,19 @@
 package org.example.javacore.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.Instant;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "language")
-public class Language {
+public class LanguageEntity {
     @Id
     @Column(name = "language_id", nullable = false)
     private Byte id;
@@ -22,7 +21,6 @@ public class Language {
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @ColumnDefault("current_timestamp()")
     @Column(name = "last_update", nullable = false)
     private Instant lastUpdate;
 

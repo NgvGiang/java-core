@@ -1,14 +1,15 @@
 package org.example.javacore.entity;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "film_text")
-public class FilmText {
+public class FilmTextEntity {
     @Id
     @Column(name = "film_id", nullable = false)
     private Short id;

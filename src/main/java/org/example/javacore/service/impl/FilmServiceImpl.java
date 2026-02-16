@@ -1,30 +1,43 @@
 package org.example.javacore.service.impl;
 
 import org.example.javacore.dto.FilmDto;
-import org.example.javacore.entity.Film;
+import org.example.javacore.entity.FilmEntity;
 import org.example.javacore.repository.FilmRepository;
 import org.example.javacore.service.FilmService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.ObjectMapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FilmServiceImpl implements FilmService {
     private final FilmRepository filmRepository;
     private final ModelMapper modelMapper;
-    private final ObjectMapper mapper;
 
-    public FilmServiceImpl(FilmRepository filmRepository, ModelMapper modelMapper, ObjectMapper mapper) {
+    public FilmServiceImpl(FilmRepository filmRepository, ModelMapper modelMapper) {
         this.filmRepository = filmRepository;
         this.modelMapper = modelMapper;
-        this.mapper = mapper;
     }
 
     @Override
     public FilmDto getFilmById(Long id){
-        Film film =  filmRepository.findById(id).orElseThrow(() ->
+        FilmEntity film =  filmRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Record not exist")
         );
-        return mapper.convertValue(film,FilmDto.class);
+        System.out.println(film.getDescription());
+        return modelMapper.map(film,FilmDto.class);
     }
+
+    @Override
+    public List<FilmDto> findAllByIds(List<Long> ids){
+        List<FilmEntity> film =  filmRepository.findAllByIdIn(ids);
+        List<FilmDto> filmDtos = new ArrayList<>();
+        for (FilmEntity f : film){
+            FilmDto dto = modelMapper.map(f,FilmDto.class);
+            filmDtos.add(dto);
+        }
+        return filmDtos;
+    }
+
 }

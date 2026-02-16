@@ -1,17 +1,18 @@
 package org.example.javacore.entity;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "address")
-public class Address {
+public class AddressEntity {
     @Id
     @Column(name = "address_id", nullable = false)
     private Short id;
@@ -27,7 +28,7 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "city_id", nullable = false)
-    private City city;
+    private CityEntity city;
 
     @Column(name = "postal_code", length = 10)
     private String postalCode;
@@ -35,8 +36,16 @@ public class Address {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
-    @ColumnDefault("current_timestamp()")
     @Column(name = "last_update", nullable = false)
     private Instant lastUpdate;
+
+    @OneToMany(mappedBy = "address")
+    private Set<CustomerEntity> customers = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "address")
+    private Set<StaffEntity> staff = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "address")
+    private Set<StoreEntity> stores = new LinkedHashSet<>();
 
 }
