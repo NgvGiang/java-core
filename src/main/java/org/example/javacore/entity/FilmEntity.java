@@ -6,8 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -66,6 +65,6 @@ public class FilmEntity {
     private Set<FilmCategoryEntity> filmCategories = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "film")
-    private Set<InventoryEntity> inventories = new LinkedHashSet<>();
+    private List<InventoryEntity> inventories = new LinkedList<>();
 
 }

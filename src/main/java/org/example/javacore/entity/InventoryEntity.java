@@ -16,7 +16,7 @@ public class InventoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inventory_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "film_id", nullable = false)

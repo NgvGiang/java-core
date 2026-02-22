@@ -2,13 +2,17 @@ package org.example.javacore.service.impl;
 
 import org.example.javacore.dto.FilmDto;
 import org.example.javacore.entity.FilmEntity;
+import org.example.javacore.entity.InventoryEntity;
+import org.example.javacore.entity.LanguageEntity;
 import org.example.javacore.repository.FilmRepository;
 import org.example.javacore.service.FilmService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FilmServiceImpl implements FilmService {
@@ -25,8 +29,9 @@ public class FilmServiceImpl implements FilmService {
         FilmEntity film =  filmRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Record not exist")
         );
-        System.out.println(film.getDescription());
-        return modelMapper.map(film,FilmDto.class);
+        FilmDto dtoToReturn = modelMapper.map(film,FilmDto.class);
+        //todo mapping value for language and listInventoryIds
+        return dtoToReturn;
     }
 
     @Override

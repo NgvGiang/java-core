@@ -3,9 +3,16 @@ package org.example.javacore.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.javacore.entity.FilmActorEntity;
+import org.example.javacore.entity.FilmCategoryEntity;
+import org.example.javacore.entity.InventoryEntity;
 
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -37,5 +44,7 @@ public class FilmDto {
     private String specialFeatures;
 
     private Instant lastUpdate;
+
+    private List<Long> inventoryIds;
 
 }
