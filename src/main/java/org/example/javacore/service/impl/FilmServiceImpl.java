@@ -31,7 +31,19 @@ public class FilmServiceImpl implements FilmService {
         );
         FilmDto dtoToReturn = modelMapper.map(film,FilmDto.class);
         //todo mapping value for language and listInventoryIds
-        //test
+
+        dtoToReturn.setLanguage(film.getLanguage().getName());
+        if (film.getLanguage() != null) {
+            dtoToReturn.setLanguage(film.getLanguage().getName());
+        }
+
+        List<Long> inventoryIdsToReturn = new ArrayList<>();
+        for (InventoryEntity x : film.getInventories()) {
+            inventoryIdsToReturn.add(x.getId());
+        }
+
+        dtoToReturn.setInventoryIds(inventoryIdsToReturn);
+
         return dtoToReturn;
     }
 
