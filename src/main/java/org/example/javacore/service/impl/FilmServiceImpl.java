@@ -58,11 +58,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     public static void main(String[] args) {
-        TreeSet<Student> students = new TreeSet<>(Comparator.comparing(Student::getName));
-        Student s1 = new Student(12412L, "A", "0901234567", "Ha Noi");
+        TreeSet<Student> students = new TreeSet<>(Comparator.comparing(Student::getAddress));
+        Student s1 = new Student(12412L, "C", "0901234567", "Ha Noi");
         Student s2 = new Student(4L, "B", "0912345678", "Da Nang");
         Student s3 = new Student(5676L, "D", "0923456789", "Ho Chi Minh");
-        Student s4 = new Student(124L, "C", "0934567890", "Hai Phong");
+        Student s4 = new Student(124L, "A", "0934567890", "Hai Phong");
         students.add(s1);
         students.add(s2);
         students.add(s3);
